@@ -1,29 +1,41 @@
+import { useState } from 'react';
+
 function Form() {
+  const [showForm, setShowForm] = useState(false);
+
   return (
     <>
-      <form>
-        <label>
-          Nome do serviço
-          <input type="text" />
-        </label>
+      { showForm
+      && (
+        <form>
+          <label>
+            Nome do serviço
+            <input type="text" />
+          </label>
 
-        <label>
-          Login
-          <input type="text" />
-        </label>
+          <label>
+            Login
+            <input type="text" />
+          </label>
 
-        <label>
-          Senha
-          <input type="password" name="" id="" />
-        </label>
+          <label>
+            Senha
+            <input type="password" name="" id="" />
+          </label>
 
-        <label>
-          URL
-          <input type="text" />
-        </label>
-      </form>
-      <button>Cadastrar</button>
-      <button>Cancelar</button>
+          <label>
+            URL
+            <input type="text" />
+          </label>
+          <button>Cadastrar</button>
+          <button onClick={ () => setShowForm(false) }>Cancelar</button>
+        </form>)}
+
+      { !showForm
+      && (
+        <button onClick={ () => setShowForm(true) }>
+          Cadastrar nova senha
+        </button>)}
     </>
   );
 }
