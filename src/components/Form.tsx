@@ -1,61 +1,71 @@
 import { useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { object, string } from 'yup';
-
-const schema = object({
-  nome: string().min(1),
-  login: string().min(1),
-  senha: string()
-    .min(8, 'Possuir 8 ou mais caracteres')
-    .max(16, 'Possuir até 16 caracteres')
-    .matches(/^(?=.*[a-zA-Z])(?=.*[0-9])/, 'Possuir letras e números')
-    .matches(/[^a-zA-Z0-9]/, 'Possuir algum caractere especial'),
-  url: string(),
-});
 
 function Form() {
-  const { register, handleSubmit: onSubmit,
-    formState: { errors, isValid, isDirty, isSubmitting } } = useForm(
-    { resolver: yupResolver(schema), mode: 'onChange' },
-  );
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [nome, setNome] = useState('');
+  const [login, setLogin] = useState('');
+  const [senha, setSenha] = useState('');
+  const [url, setUrl] = useState('');
 
-  const handleSubmit = (data: any) => {
-    console.log(data);
+  const isPasswordValid = (password: string) => {
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
+    return passwordRegex.test(password);
   };
 
-  console.log(errors);
+  const isFormValid = () => {
+    return (
+      nome.trim().length > 0
+      && login.trim().length > 0
+      && senha.trim().length > 0
+      && isPasswordValid(senha)
+    );
+  };
 
   return (
     <>
       { showForm
       && (
-        <form onSubmit={ onSubmit(handleSubmit) }>
+        <form>
           <label>
             Nome do serviço
             <input
               type="text"
-              { ...register('nome') }
+              name="nome"
+              value={ nome }
+              onChange={ (element) => setNome(element.target.value) }
             />
           </label>
 
           <label>
             Login
-            <input type="text" { ...register('login') } />
+            <input
+              type="text"
+              name="login"
+              value={ login }
+              onChange={ (element) => setLogin(element.target.value) }
+            />
           </label>
 
           <label>
             Senha
-            <input type="password" id="" { ...register('senha') } />
-            <h1 className="invalid-password-check">{errors?.senha?.message}</h1>
+            <input
+              type="password"
+              name="senha"
+              value={ senha }
+              onChange={ (element) => setSenha(element.target.value) }
+            />
           </label>
 
           <label>
             URL
-            <input type="text" { ...register('url') } />
+            <input
+              type="text"
+              name="url"
+              value={ url }
+              onChange={ (element) => setUrl(element.target.value) }
+            />
           </label>
-          <button disabled={ !(isDirty && isValid) }>
+          <button disabled={ !isFormValid() }>
             Cadastrar
           </button>
           <button onClick={ () => setShowForm(false) }>Cancelar</button>
