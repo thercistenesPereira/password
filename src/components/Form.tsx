@@ -1,11 +1,8 @@
 import React, { useState, FormEvent } from 'react';
-
-interface Servico {
-  nome: string;
-  login: string;
-  senha: string;
-  url: string;
-}
+import { Servico } from '../types/types';
+import { getPasswordLengthClassName, getPasswordCharactersClassName,
+  getPasswordSpecialCharacterClassName,
+} from '../helpers/passwordHelpers';
 
 function Form() {
   const [showForm, setShowForm] = useState<boolean>(false);
@@ -29,24 +26,6 @@ function Form() {
     );
   };
 
-  const validPassword = 'valid-password-check';
-  const invalidPassword = 'invalid-password-check';
-
-  const getPasswordLengthClassName = ():string => {
-    const lengthString = senha.trim().length;
-    return lengthString >= 8 && lengthString <= 16 ? validPassword : invalidPassword;
-  };
-
-  const getPasswordCharactersClassName = (): string => {
-    const containsLettersAndNumbers = /^(?=.*[A-Za-z])(?=.*\d)/.test(senha);
-    return containsLettersAndNumbers ? validPassword : invalidPassword;
-  };
-
-  const getPasswordSpecialCharacterClassName = (): string => {
-    const containsSpecialCharacter = /[@$!%*#?&]/.test(senha);
-    return containsSpecialCharacter ? validPassword : invalidPassword;
-  };
-
   const handleCadastrar = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     if (isFormValid()) {
@@ -63,6 +42,11 @@ function Form() {
       setUrl('');
       setShowForm(false);
     }
+  };
+
+  const handleDelete = (index: number) => {
+    const updatedServicos = servicos.filter((_, i) => i !== index);
+    setServicos(updatedServicos);
   };
 
   return (
@@ -99,22 +83,22 @@ function Form() {
               onChange={ (event) => setSenha(event.target.value) }
             />
           </label>
-          <p className={ getPasswordLengthClassName() }>
-            { senha.length >= 8
+          <p className={ getPasswordLengthClassName(senha) }>
+            {senha.length >= 8
               ? 'Possuir 8 ou mais caracteres'
               : 'Possuir 8 ou mais caracteres'}
           </p>
-          <p className={ getPasswordLengthClassName() }>
-            { senha.length <= 16
+          <p className={ getPasswordLengthClassName(senha) }>
+            {senha.length <= 16
               ? 'Possuir até 16 caracteres'
               : 'Possuir até 16 caracteres'}
           </p>
-          <p className={ getPasswordCharactersClassName() }>
+          <p className={ getPasswordCharactersClassName(senha) }>
             {/^(?=.*[A-Za-z])(?=.*\d)/.test(senha)
               ? 'Possuir letras e números'
               : 'Possuir letras e números'}
           </p>
-          <p className={ getPasswordSpecialCharacterClassName() }>
+          <p className={ getPasswordSpecialCharacterClassName(senha) }>
             {/[@$!%*#?&]/.test(senha)
               ? 'Possuir algum caractere especial'
               : 'Possuir algum caractere especial'}
@@ -140,17 +124,23 @@ function Form() {
             <p>Nenhuma senha cadastrada</p>
           ) : (
             <ul>
-              { servicos.map((servico, index) => (
+              {servicos.map((servico, index) => (
                 <li key={ index }>
                   <a href={ servico.url }>{servico.nome}</a>
+                  <p>Login</p>
                   <p>
-                    Login:
-                    { servico.login }
+                    { servico.login}
                   </p>
                   <p>
                     Senha:
-                    {servico.senha}
+                    { servico.senha }
                   </p>
+                  <button
+                    onClick={ () => handleDelete(index) }
+                    data-testid="remove-btn"
+                  >
+                    Remover Serviço
+                  </button>
                 </li>
               ))}
             </ul>
