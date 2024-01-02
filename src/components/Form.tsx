@@ -119,7 +119,7 @@ function Form() {
           <button onClick={ () => setShowForm(false) }>Cancelar</button>
         </form>
       ) : (
-        <>
+        <div>
           {servicos.length === 0 ? (
             <p>Nenhuma senha cadastrada</p>
           ) : (
@@ -146,7 +146,7 @@ function Form() {
             </ul>
           )}
           <button onClick={ () => setShowForm(true) }>Cadastrar nova senha</button>
-        </>
+        </div>
       )}
     </>
   );

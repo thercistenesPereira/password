@@ -4,11 +4,10 @@ import './App.css';
 
 function App() {
   return (
-    <div>
+    <>
       <Title />
       <Form />
-      Hello World
-    </div>
+    </>
   );
 }
 
