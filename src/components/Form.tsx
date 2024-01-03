@@ -56,69 +56,70 @@ function Form() {
       <div />
       {showForm ? (
         <form onSubmit={ handleCadastrar }>
-          <label>
-            Nome do serviço
-            <input
-              type="text"
-              name="nome"
-              value={ nome }
-              onChange={ (event) => setNome(event.target.value) }
-            />
-          </label>
+          <label htmlFor="nome">Nome do serviço</label>
+          <input
+            type="text"
+            name="nome"
+            value={ nome }
+            onChange={ (event) => setNome(event.target.value) }
+          />
 
-          <label>
-            Login
-            <input
-              type="text"
-              name="login"
-              value={ login }
-              onChange={ (event) => setLogin(event.target.value) }
-            />
-          </label>
+          <label htmlFor="login">Login</label>
+          <input
+            type="text"
+            name="login"
+            value={ login }
+            onChange={ (event) => setLogin(event.target.value) }
+          />
 
-          <label>
-            Senha
-            <input
-              type="password"
-              name="senha"
-              value={ senha }
-              onChange={ (event) => setSenha(event.target.value) }
-            />
-          </label>
-          <p className={ getPasswordLengthClassName(senha) }>
-            {senha.length >= 8
-              ? 'Possuir 8 ou mais caracteres'
-              : 'Possuir 8 ou mais caracteres'}
-          </p>
-          <p className={ getPasswordLengthClassName(senha) }>
-            {senha.length <= 16
-              ? 'Possuir até 16 caracteres'
-              : 'Possuir até 16 caracteres'}
-          </p>
-          <p className={ getPasswordCharactersClassName(senha) }>
-            {/^(?=.*[A-Za-z])(?=.*\d)/.test(senha)
-              ? 'Possuir letras e números'
-              : 'Possuir letras e números'}
-          </p>
-          <p className={ getPasswordSpecialCharacterClassName(senha) }>
-            {/[@$!%*#?&]/.test(senha)
-              ? 'Possuir algum caractere especial'
-              : 'Possuir algum caractere especial'}
-          </p>
+          <label htmlFor="senha">Senha</label>
+          <input
+            type="password"
+            name="senha"
+            value={ senha }
+            onChange={ (event) => setSenha(event.target.value) }
+          />
 
-          <label>
-            URL
-            <input
-              type="text"
-              name="url"
-              value={ url }
-              onChange={ (event) => setUrl(event.target.value) }
-            />
-          </label>
-          <button type="submit" disabled={ !isFormValid() }>
-            Cadastrar
-          </button>
-          <button onClick={ () => setShowForm(false) }>Cancelar</button>
+          <div className="validation">
+            <p className={ getPasswordLengthClassName(senha) }>
+              {senha.length >= 8
+                ? 'Possuir 8 ou mais caracteres'
+                : 'Possuir 8 ou mais caracteres'}
+            </p>
+            <p className={ getPasswordLengthClassName(senha) }>
+              {senha.length <= 16
+                ? 'Possuir até 16 caracteres'
+                : 'Possuir até 16 caracteres'}
+            </p>
+            <p className={ getPasswordCharactersClassName(senha) }>
+              {/^(?=.*[A-Za-z])(?=.*\d)/.test(senha)
+                ? 'Possuir letras e números'
+                : 'Possuir letras e números'}
+            </p>
+            <p className={ getPasswordSpecialCharacterClassName(senha) }>
+              {/[@$!%*#?&]/.test(senha)
+                ? 'Possuir algum caractere especial'
+                : 'Possuir algum caractere especial'}
+            </p>
+          </div>
+
+          <label htmlFor="url">URL</label>
+
+          <input
+            type="text"
+            name="url"
+            value={ url }
+            onChange={ (event) => setUrl(event.target.value) }
+          />
+
+          <div className="container-butons">
+            <button type="submit" disabled={ !isFormValid() }>
+              Cadastrar
+            </button>
+            <button onClick={ () => setShowForm(false) }>
+              Cancelar
+            </button>
+          </div>
         </form>
       ) : (
         <div id="password">
