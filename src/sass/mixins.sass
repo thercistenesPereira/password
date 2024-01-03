@@ -1,0 +1,22 @@
+@use '../sass/variables'
+
+@mixin btn
+  margin-top: 2rem
+  background-image: variables.$gradient
+  color: variables.$text-color
+  border: none
+  border-radius: variables.$container-border-radios
+  padding: 1rem
+  cursor: pointer
+
+@mixin container
+  background-color: variables.$bg-color
+  flex: 1 1 0
+  border-radius: variables.$container-border-radios
+  box-shadow:4px 12px 62px -21px rgba(0,0,0,0.89)
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  padding: 5rem
+  margin-top: 3rem

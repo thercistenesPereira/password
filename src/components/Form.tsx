@@ -4,6 +4,8 @@ import { getPasswordLengthClassName, getPasswordCharactersClassName,
   getPasswordSpecialCharacterClassName,
 } from '../helpers/passwordHelpers';
 
+import '../sass/components/form.sass';
+
 function Form() {
   const [showForm, setShowForm] = useState<boolean>(false);
   const [nome, setNome] = useState<string>('');
@@ -50,7 +52,7 @@ function Form() {
   };
 
   return (
-    <>
+    <main id="main-form">
       <div />
       {showForm ? (
         <form onSubmit={ handleCadastrar }>
@@ -119,9 +121,9 @@ function Form() {
           <button onClick={ () => setShowForm(false) }>Cancelar</button>
         </form>
       ) : (
-        <div>
+        <div id="password">
           {servicos.length === 0 ? (
-            <p>Nenhuma senha cadastrada</p>
+            <p className="password-none">Nenhuma senha cadastrada</p>
           ) : (
             <ul>
               {servicos.map((servico, index) => (
@@ -145,10 +147,14 @@ function Form() {
               ))}
             </ul>
           )}
-          <button onClick={ () => setShowForm(true) }>Cadastrar nova senha</button>
+          <button
+            onClick={ () => setShowForm(true) }
+          >
+            Cadastrar nova senha
+          </button>
         </div>
       )}
-    </>
+    </main>
   );
 }
 
