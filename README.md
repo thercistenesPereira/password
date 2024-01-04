@@ -1,6 +1,7 @@
 # SecurePass - Gerenciador de Senhas
 ![Static Badge](https://img.shields.io/badge/thercistenes-secure%20pass-purple)
 ![GitHub License](https://img.shields.io/github/license/thercistenesPereira/password)
+<img src='src/images/Captura de tela de 2024-01-03 21-52-50.png'>
 
 ## Visão Geral
 O SecurePass é um gerenciador de senhas baseado na web que ajuda você a organizar e armazenar suas credenciais de login de forma segura para vários serviços. Esta aplicação permite que você armazene nomes de serviços, logins, senhas e URLs associados de maneira organizada.
